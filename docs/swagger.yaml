@@ -46,7 +46,7 @@ paths:
       - application/json
       responses:
         "201":
-          description: Registros creados correctamente.
+          description: Enviados correctamente.
         "400":
           description: Error en la Data enviada.
         "500":
@@ -69,4 +69,28 @@ paths:
       summary: Get Health
       tags:
       - Health
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: payload for the endpoint
+      parameters:
+      - description: requestDevops
+        in: body
+        name: requestDevops
+        required: true
+        schema:
+          $ref: '#/definitions/devOps.RequestDevops'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: login correctamente.
+        "400":
+          description: Error en la Data enviada.
+        "500":
+          description: Error Interno en el api.
+      summary: login - api test
+      tags:
+      - login
 swagger: "2.0"

@@ -53,7 +53,7 @@ var doc = `{
                 ],
                 "responses": {
                     "201": {
-                        "description": "Registros creados correctamente."
+                        "description": "Enviados correctamente."
                     },
                     "400": {
                         "description": "Error en la Data enviada."
@@ -83,6 +83,43 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/appserver.HealthRsp"
                         }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "description": "payload for the endpoint",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "login"
+                ],
+                "summary": "login - api test",
+                "parameters": [
+                    {
+                        "description": "requestDevops",
+                        "name": "requestDevops",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/devOps.RequestDevops"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "login correctamente."
+                    },
+                    "400": {
+                        "description": "Error en la Data enviada."
+                    },
+                    "500": {
+                        "description": "Error Interno en el api."
                     }
                 }
             }
