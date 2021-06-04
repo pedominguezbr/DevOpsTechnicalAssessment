@@ -1,0 +1,22 @@
+appname: Devops
+port: 8081
+
+db:
+    #the follows databases were injects for Hygen
+    oracle:
+      - enabled: true
+        host: server
+        port: 1521
+        username: user
+        password: pass
+        database: database
+        nameconn: conexionname
+
+email:
+    id: Id
+    url: https://apicorreo/send-mail
+
+
+contacts:
+    name: Pedro.Dominguez
+    email: pe.dominguez.br@gmail.com

@@ -1,0 +1,98 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: development
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ibm-cloud-cr
+  namespace: development
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-devops
+  name: api-devops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-devops
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: api-devops
+    spec:
+      imagePullSecrets:
+        - name: ibm-cloud-cr
+      #volumes:
+      #  - configMap:
+      #      defaultMode: 256
+      #      name: api-devops
+      #      optional: false
+      #    name: api-devops
+      containers:
+      - image: us.icr.io/ws-rest/api-devops:#{tag}
+        imagePullPolicy: IfNotPresent
+        name: api-devops
+        ports:
+        - containerPort: 8080
+          name: 8080tcp01s
+          protocol: TCP
+        resources: { }
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: {}
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        tty: true
+        #volumeMounts:
+        #- mountPath: /app/config.yml
+        #  name: api-devops
+        #  subPath: config.yml
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: api-devops
+  name: api-devops
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: api-devops
+  sessionAffinity: None
+  type: NodePort
+  #type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: api-devops
+spec:
+  rules:
+  - host: api-devops-#{ambiente}.#{host}
+    http:
+      paths:
+      - backend:
+          serviceName: api-devops
+          servicePort: 8080
+  #tls:
+  #- hosts:
+  #  - api-devops-#{ambiente}.#{host}
+  #  secretName: #{secretName}
+    

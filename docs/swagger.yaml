@@ -1,0 +1,72 @@
+basePath: /
+definitions:
+  appserver.HealthRsp:
+    properties:
+      status:
+        example: success
+        type: string
+    type: object
+  devOps.RequestDevops:
+    properties:
+      from:
+        example: Rita Asturia
+        type: string
+      message”:
+        example: This is a test
+        type: string
+      timeToLifeSec:
+        example: 45
+        type: number
+      to:
+        example: Juan Perez
+        type: string
+    type: object
+host: localhost:8081
+info:
+  contact:
+    email: pe.dominguez.br@gmail.com
+    name: Pedro.Dominguez-experis
+  description: DevOps Technical Assessment.
+  title: Api DevOps
+  version: "1.0"
+paths:
+  /DevOps:
+    post:
+      consumes:
+      - application/json
+      description: payload for the endpoint
+      parameters:
+      - description: requestDevops
+        in: body
+        name: requestDevops
+        required: true
+        schema:
+          $ref: '#/definitions/devOps.RequestDevops'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Registros creados correctamente.
+        "400":
+          description: Error en la Data enviada.
+        "500":
+          description: Error Interno en el api.
+      summary: DevOps - api test
+      tags:
+      - DevOps
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: Get Health
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Respuesta de health
+          schema:
+            $ref: '#/definitions/appserver.HealthRsp'
+      summary: Get Health
+      tags:
+      - Health
+swagger: "2.0"
