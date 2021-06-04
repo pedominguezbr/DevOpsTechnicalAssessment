@@ -182,7 +182,7 @@ stages:
                 kubernetesServiceEndpoint: 'clusterDevopsIbm'
                 command: 'apply'
                 secretType: 'dockerRegistry'
-                secretArguments: --docker-server=us.icr.io --docker-username='iamapikey' --docker-password='drZx-Uo3YUdOwraK6GnTOHIcotLXqMmdLvkBYRgpsh_5'
+                secretArguments: --docker-server=us.icr.io --docker-username='11' --docker-password='1-1'
                 containerRegistryType: 'Container Registry'
                 dockerRegistryEndpoint: 'ibm-cloud-cr'
                 secretName: 'ibm-cloud-cr'
